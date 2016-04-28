@@ -7,4 +7,5 @@ class CategoriesController < ApplicationController
       f.json { render json: { categories: @categories } }
     end
   end
+
 end

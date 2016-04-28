@@ -12,6 +12,7 @@ class GamesController < ApplicationController
 
   def show
     @game = @category.games.find(params[:id])
+    render json: { game:@game }
   end
 
 
@@ -20,11 +21,29 @@ class GamesController < ApplicationController
     @game.category = @category
 
     if @game.save
-      redirect_to category_game_path(@category, @game), notice: "Game created successfully"
+      render json: { game:@game, location: game_url(@game)}, status: 201
     else
-      render :new
+      render json: { errors: @game.errors }, status:422
     end
   end
+
+  def update
+    @game = Game.find(params[:id])
+    if @game.update(game_params)
+      render json: { game:@game }, status: 202
+    else
+      render json: { errors:@game.errors }, status:422
+    end
+  end
+
+def destroy
+  @game = Game.find(params[:id])
+  if @game.destroy
+    render json: { game: nil }
+  else
+    render json: { errors:@game.errors }
+  end
+end
 
   protected
   def set_category
