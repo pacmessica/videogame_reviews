@@ -46,6 +46,10 @@ def destroy
 end
 
   protected
+  def game_params
+    params.require(:game).permit(:title, :cover_image)
+  end
+
   def set_category
     @category = Category.find(params[:category_id])
   end
