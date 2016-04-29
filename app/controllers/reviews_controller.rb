@@ -15,10 +15,6 @@ class ReviewsController < ApplicationController
     render json: {  review: @review}
   end
 
-
-
-
-
   def create
     @review = Review.new(Review_params)
     @review.category.game = @game
@@ -56,7 +52,5 @@ end
   def set_game
     @game = Game.find(params[:game_id])
   end
-
-
 
 end

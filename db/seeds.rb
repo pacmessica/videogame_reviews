@@ -1,7 +1,7 @@
-print "Seeding standard categories..."
+print "Seeding standard categories.."
+Review.destroy_all
 Game.destroy_all
 Category.destroy_all
-User.destroy_all
 
 
 pc_games = Category.create( name:"PC Games")
@@ -23,9 +23,7 @@ Game.create(title: "Risk", category: board_games)
 
 
 
-10.times do
-  user = User.create( email:Faker::Internet.email, password:Faker::Internet.password )
-  Game.all.each do |game|
-    Review.create(game:game, user:user, content:Faker::Lorem.sentence)
-  end
+
+Game.all.each do |game|
+  Review.create(game:game, content:Faker::Lorem.sentence)
 end
